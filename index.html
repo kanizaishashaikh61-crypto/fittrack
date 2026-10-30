@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FitTrack — daily calorie, macro, hydration, and workout tracking." />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2384CC16'/%3E%3Ccircle cx='32' cy='32' r='21' fill='none' stroke='%230F172A' stroke-width='6'/%3E%3Cpath d='M20 34l8 8 17-19' fill='none' stroke='%230F172A' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=fittrack-5" />
+  <title>FitTrack — Daily fitness, made clear</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="FitTrack home">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span>Fit<span>Track</span></span>
+      </a>
+      <div class="topbar-actions">
+        <div class="date-chip"><span class="status-dot"></span><span id="todayLabel">Today</span></div>
+        <button class="icon-button" id="openSettings" aria-label="Open goal calculator" title="Adjust goals">⚙</button>
+        <button class="coach-button" id="openCoach" type="button" aria-label="Open FitTrack AI Coach">✦ <span>AI Coach</span></button>
+        <a class="auth-button" id="authButton" href="/login.html" aria-label="Sign in to FitTrack">Sign in</a>
+        <button class="avatar" id="avatarButton" aria-label="Profile" hidden>AK</button>
+      </div>
+    </header>
+
+    <main id="top" class="dashboard">
+      <section class="welcome-row">
+        <div>
+          <p class="eyebrow">DAILY RHYTHM <span id="streakLabel">• 1 day streak</span></p>
+          <h1>Good morning, <span id="greetingName">Kaniz</span><span class="lime">.</span></h1>
+          <p class="subcopy">Small choices add up. Keep your momentum going.</p>
+        </div>
+        <button class="button button-secondary" id="resetDay">↻ <span>Reset today</span></button>
+      </section>
+
+      <section class="hero-grid">
+        <article class="card calorie-card">
+          <div class="card-head"><div><p class="eyebrow">CALORIE BALANCE</p><h2>Today at a glance</h2></div><span class="goal-pill" id="goalPill">Goal 2,100 kcal</span></div>
+          <div class="calorie-content">
+            <div class="gauge-wrap">
+              <svg class="gauge" viewBox="0 0 220 220" aria-label="Calories remaining gauge">
+                <circle class="gauge-track" cx="110" cy="110" r="88"></circle>
+                <circle class="gauge-progress" id="gaugeProgress" cx="110" cy="110" r="88"></circle>
+              </svg>
+              <div class="gauge-center"><span class="gauge-value" id="caloriesRemaining">2,100</span><span class="gauge-label">kcal remaining</span></div>
+            </div>
+            <div class="balance-stats">
+              <div class="balance-stat"><span class="stat-icon consumed">↓</span><div><span>Consumed</span><strong id="caloriesConsumed">0 <small>kcal</small></strong></div></div>
+              <div class="balance-stat"><span class="stat-icon burned">✦</span><div><span>Burned</span><strong id="caloriesBurned">0 <small>kcal</small></strong></div></div>
+              <div class="balance-stat"><span class="stat-icon net">≈</span><div><span>Net calories</span><strong id="netCalories">0 <small>kcal</small></strong></div></div>
+            </div>
+          </div>
+          <div class="insight"><span class="insight-mark">✦</span><span id="insightText">You have plenty of room today. Start with a balanced meal.</span></div>
+        </article>
+
+        <article class="card macro-card">
+          <div class="card-head"><div><p class="eyebrow">MACRO SPLIT</p><h2>Fuel your goals</h2></div><button class="text-button" id="openCalculator">Edit targets →</button></div>
+          <div class="macro-list">
+            <div class="macro-row"><div class="macro-label"><span class="macro-dot protein"></span><span>Protein</span><strong><b id="proteinValue">0</b> / <span id="proteinTarget">158</span>g</strong></div><div class="progress-track"><span class="progress-fill protein-fill" id="proteinBar"></span></div></div>
+            <div class="macro-row"><div class="macro-label"><span class="macro-dot carbs"></span><span>Carbs</span><strong><b id="carbsValue">0</b> / <span id="carbsTarget">210</span>g</strong></div><div class="progress-track"><span class="progress-fill carbs-fill" id="carbsBar"></span></div></div>
+            <div class="macro-row"><div class="macro-label"><span class="macro-dot fats"></span><span>Fats</span><strong><b id="fatValue">0</b> / <span id="fatTarget">70</span>g</strong></div><div class="progress-track"><span class="progress-fill fats-fill" id="fatBar"></span></div></div>
+          </div>
+          <div class="macro-footer"><span>Balanced plate guide</span><span class="macro-legend"><i class="protein"></i> Protein <i class="carbs"></i> Carbs <i class="fats"></i> Fats</span></div>
+        </article>
+      </section>
+
+      <div class="content-grid">
+        <section class="main-column">
+          <article class="card quick-add-card">
+            <div class="card-head"><div><p class="eyebrow">QUICK ADD</p><h2>Log something in one tap</h2></div><button class="button button-primary" id="openFoodModal">＋ Custom food</button></div>
+            <div class="preset-shelf" id="presetShelf"></div>
+          </article>
+
+          <section class="meals-section"><div class="section-title"><div><p class="eyebrow">FOOD LOG</p><h2>Today's meals</h2></div><span class="muted" id="mealCount">0 items</span></div><div class="meal-list" id="mealList"></div></section>
+        </section>
+
+        <aside class="side-column">
+          <article class="card water-card">
+            <div class="card-head"><div><p class="eyebrow cyan-text">HYDRATION</p><h2>Water tracker</h2></div><span class="water-amount"><b id="waterValue">0</b> / <span id="waterGoal">2,500</span> ml</span></div>
+            <div class="water-visual"><div class="water-bottle"><div class="water-fill" id="waterFill"></div><span>H₂O</span></div><div class="water-copy"><strong id="waterPercent">0%</strong><span>of daily goal</span><small id="waterMessage">Let's get hydrated.</small></div></div>
+            <div class="water-actions"><button class="button water-button" data-water="250">＋250 ml</button><button class="button water-button" data-water="500">＋500 ml</button></div>
+          </article>
+
+          <article class="card workout-card"><div class="card-head"><div><p class="eyebrow orange-text">MOVEMENT</p><h2>Workout log</h2></div><button class="round-add" id="openWorkoutModal" aria-label="Add workout">＋</button></div><div id="workoutList" class="workout-list"></div><div class="movement-total"><span>Active burn</span><strong><span id="movementTotal">0</span> <small>kcal</small></strong></div></article>
+
+          <article class="card rhythm-card"><p class="eyebrow">TODAY'S RHYTHM</p><div class="rhythm-item done"><span>08:00</span><i>✓</i><div><strong>Morning check-in</strong><small>Ready when you are</small></div></div><div class="rhythm-item" id="lunchRhythm"><span>12:30</span><i>•</i><div><strong>Lunch window</strong><small>Log your next meal</small></div></div><div class="rhythm-item"><span>18:30</span><i>•</i><div><strong>Evening movement</strong><small>Optional 20 min reset</small></div></div></article>
+        </aside>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" id="closeModal" aria-label="Close">×</button><div id="modalContent"></div></div></div>
+  <div class="coach-scrim" id="coachScrim" hidden></div>
+  <aside class="coach-panel" id="coachPanel" hidden aria-label="FitTrack AI Coach">
+    <div class="coach-head"><div class="coach-title"><span class="coach-mark">✦</span><div><p class="eyebrow cyan-text">FITTRACK INTELLIGENCE</p><h2>Your AI Coach</h2></div></div><button class="coach-close" id="closeCoach" type="button" aria-label="Close AI Coach">×</button></div>
+    <div class="coach-hero"><div class="coach-hero-orb">✦</div><div><strong>Small choices. Smarter days.</strong><p>Your personal guide for calories, meals, hydration, and movement.</p></div></div>
+    <div class="coach-status"><span></span> Live dashboard context connected</div>
+    <div class="coach-messages" id="coachMessages" aria-live="polite"></div>
+    <div class="coach-suggestions" aria-label="Suggested questions"><p class="coach-suggestions-label">Start with a quick question</p><div class="coach-suggestion-grid"><button type="button" data-coach-prompt="How much protein do I have left today?"><span>◒</span><strong>Protein target</strong><small>See what is left</small></button><button type="button" data-coach-prompt="Suggest a balanced dinner that fits my remaining calories."><span>✦</span><strong>Plan a meal</strong><small>Use my calorie balance</small></button><button type="button" data-coach-prompt="Give me a simple 20-minute workout I can do today."><span>↗</span><strong>Move today</strong><small>Get a quick workout</small></button></div></div>
+    <form class="coach-form" id="coachForm"><input id="coachInput" name="message" maxlength="600" autocomplete="off" placeholder="Ask anything about your day…" aria-label="Message AI Coach" required /><button class="coach-send" type="submit" aria-label="Send message">↑</button></form>
+    <p class="coach-disclaimer">General wellness guidance only — not medical advice.</p>
+  </aside>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js?v=fittrack-4"></script>
+</body>
+</html>

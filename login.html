@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Sign in — FitTrack</title>
+  <link rel="stylesheet" href="/styles.css?v=fittrack-3" />
+</head>
+<body class="auth-page">
+  <main class="auth-shell">
+    <section class="auth-card" aria-labelledby="authTitle">
+      <a class="auth-brand" href="/" aria-label="Back to FitTrack dashboard">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span>Fit<span>Track</span></span>
+      </a>
+      <div class="auth-kicker">YOUR DAILY RHYTHM</div>
+      <h1 id="authTitle">Welcome back.</h1>
+      <p class="auth-intro" id="authIntro">Sign in to your FitTrack account to continue.</p>
+      <div class="auth-tabs" role="tablist" aria-label="Account access">
+        <button class="auth-tab is-active" id="loginTab" type="button" role="tab" aria-selected="true">Sign in</button>
+        <button class="auth-tab" id="registerTab" type="button" role="tab" aria-selected="false">Create account</button>
+      </div>
+      <form id="accountForm" novalidate>
+        <label class="auth-label" for="username">Username</label>
+        <input class="auth-input" id="username" name="username" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" required placeholder="e.g. alex_fit" />
+        <p class="auth-hint">3–24 characters: letters, numbers, and underscores.</p>
+        <label class="auth-label" for="password">Password</label>
+        <input class="auth-input" id="password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="128" required placeholder="At least 8 characters" />
+        <div class="auth-status" id="authStatus" role="status" aria-live="polite"></div>
+        <button class="auth-submit" id="submitAccount" type="submit">Sign in</button>
+      </form>
+      <p class="auth-footnote">Your password is securely hashed and never stored in your browser.</p>
+      <a class="auth-back" href="/">← Back to dashboard</a>
+    </section>
+  </main>
+  <script src="/auth.js?v=fittrack-1"></script>
+</body>
+</html>
